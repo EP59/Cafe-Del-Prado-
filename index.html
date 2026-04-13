@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAFÉ DEL PRADO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+  <link rel="preload" href="./src/png/Cafe del prado logo.png" as="image">
+
+  <!-- Favicon e Iconos de App -->
+  <link rel="icon" type="image/x-icon" href="./src/png/Logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./src/png/Logo.png">
+  <link rel="apple-touch-icon" href="./src/png/Logo.png">
+
+  <style>
+    /* CSS CRÍTICO - Inlined para CRP */
+    :root {
+      --bg-color: #ffffff;
+      --text-main: #000000;
+      --header-height: 80px;
+      --font-heading: 'Varela Round', sans-serif;
+      --font-body: 'Varela Round', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--header-height);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 2001;
+    }
+
+    .menu-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      z-index: 101;
+    }
+
+    .logo-title {
+      font-family: var(--font-heading);
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      margin: 0;
+    }
+
+    .interactive-logo-container {
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1000px;
+    }
+
+    .interactive-logo {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .logo-face {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      background: white;
+    }
+
+    .logo-face img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .logo-back {
+      transform: rotateY(180deg);
+    }
+
+    .hero-parallax {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--bg-color);
+      overflow: hidden;
+      padding-top: var(--header-height);
+    }
+
+    .stickers-container {
+      position: absolute;
+      top: var(--header-height);
+      left: 0;
+      width: 100%;
+      height: calc(100% - var(--header-height));
+      pointer-events: none;
+    }
+
+    .sticker {
+      position: absolute;
+      width: clamp(100px, 15vw, 250px);
+      height: auto;
+      transform-origin: center center;
+      will-change: transform;
+    }
+  </style>
+
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body>
+  <!-- Section 0: Header -->
+  <header class="site-header">
+    <button class="menu-toggle" id="menu-toggle-btn" aria-label="Abrir menú">
+      <div class="icon-hamburger">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div class="icon-close" style="display: none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </div>
+    </button>
+    <h1 class="logo-title">
+      <a href="/" style="text-decoration: none; color: inherit;">CAFÉ DEL PRADO</a>
+    </h1>
+    <a href="/" class="interactive-logo-container" style="text-decoration: none; color: inherit; display: block;">
+      <div class="interactive-logo" id="interactive-logo">
+        <div class="logo-face logo-front">
+          <img src="./src/png/Cafe del prado logo.png" alt="Logo Frontal">
+        </div>
+        <div class="logo-face logo-back">
+          <img src="./src/png/Cafe del prado logo.png" alt="Logo Reverso">
+        </div>
+      </div>
+    </a>
+  </header>
+
+  <main>
+    <!-- Section 1: Floating Parallax -->
+    <section class="hero-parallax" id="hero">
+      <div class="stickers-container" id="stickers-container">
+        <!-- SVG Stickers injected via JS -->
+      </div>
+    </section>
+
+    <!-- Section 2: Carousel Menu & AR -->
+    <section class="menu-section" id="menu">
+      <div class="carousel-container">
+        <div class="swiper product-swiper" style="width: 100%; height: 100%;">
+          <div class="swiper-wrapper" id="cards-stack">
+            <!-- Cards injected via JS -->
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-controls">
+        <div class="category-filters">
+          <button class="filter-btn active" data-category="platillos">
+            <span class="icon"></span> Platillos
+          </button>
+          <button class="filter-btn" data-category="bebidas">
+            <span class="icon"></span> Bebidas
+          </button>
+        </div>
+
+        <div class="product-info" id="product-info">
+          <h2 class="product-name" id="product-name">Cargando...</h2>
+          <p class="product-description" id="product-description">--</p>
+          <p class="product-price" id="product-price">--</p>
+        </div>
+
+        <button class="ar-btn" id="ar-view-btn">
+          Ver en mesa
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Onboarding AR -->
+  <div id="ar-onboarding" class="ar-onboarding hidden">
+    <div class="onboarding-step" id="onboarding-step-1">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 14l9-5 9 5M3 14v5a2 2 0 002 2h14a2 2 0 002-2v-5M12 9V4M9 6h6"></path>
+      </svg>
+      <p>1. Busca una superficie plana</p>
+    </div>
+    <div class="onboarding-step hidden" id="onboarding-step-2">
+      <svg class="phone-move-icon" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="2" width="14" height="20" rx="3" ry="3"></rect>
+        <path d="M12 18h.01"></path>
+        <path d="M3 12h2"></path>
+        <path d="M19 12h2"></path>
+      </svg>
+      <p>2. Mueve tu celular lentamente</p>
+    </div>
+  </div>
+
+  <div id="ar-container" class="ar-overlay hidden">
+    <!-- El Model Viewer se inyecta dinámicamente aquí on-demand -->
+  </div>
+
+  <!-- Menú Overlay -->
+  <div class="menu-overlay" id="menu-overlay">
+
+
+    <nav class="menu-nav">
+      <a href="#" class="menu-link">Otra sucursal</a>
+      <a href="#" class="menu-link">Reserva</a>
+      <a href="#" class="menu-link">FQA</a>
+    </nav>
+
+    <a href="https://instagram.com/cafe.del.prado" target="_blank" class="instagram-btn">
+      @cafe.del.prado
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+      </svg>
+    </a>
+
+    <video src="/src/png/corcaf.mp4" class="menu-gif" autoplay loop muted playsinline></video>
+  </div>
+
+  <script type="module" src="/src/main.js" defer></script>
+</body>
+
+</html>

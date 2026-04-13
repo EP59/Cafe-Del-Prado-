@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAFÉ DEL PRADO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <script type="module" crossorigin src="/assets/index-Dm6jHkeo.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-X8fXGPic.css">
+</head>
+
+<body>
+  <!-- Section 0: Header -->
+  <header class="site-header">
+    <button class="menu-toggle" aria-label="Abrir menú">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+    <h1 class="logo-title">CAFÉ DEL PRADO</h1>
+    <div class="header-spacer"></div>
+  </header>
+
+  <main>
+    <!-- Section 1: Floating Parallax -->
+    <section class="hero-parallax" id="hero">
+      <div class="stickers-container" id="stickers-container">
+        <!-- SVG Stickers injected via JS -->
+      </div>
+    </section>
+
+    <!-- Section 2: Carousel Menu & AR -->
+    <section class="menu-section" id="menu">
+      <div class="carousel-container">
+        <div class="cards-stack" id="cards-stack">
+          <!-- Cards injected via JS -->
+        </div>
+      </div>
+
+      <div class="menu-controls">
+        <div class="category-filters">
+          <button class="filter-btn active" data-category="platillos">
+            <span class="icon"></span> Platillos
+          </button>
+          <button class="filter-btn" data-category="bebidas">
+            <span class="icon"></span> Bebidas
+          </button>
+        </div>
+
+        <div class="product-info" id="product-info">
+          <h2 class="product-name" id="product-name">Cargando...</h2>
+          <p class="product-price" id="product-price">--</p>
+        </div>
+
+        <button class="ar-btn" id="ar-view-btn">
+          Ver en mesa
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div id="ar-container" class="ar-overlay hidden">
+    <button class="close-ar" id="close-ar-btn">✕</button>
+    <model-viewer id="product-model" src="" scale="1 1 1" ar ar-modes="webxr scene-viewer quick-look" camera-controls
+      touch-action="pan-y" alt="Modelo 3D a escala real 1:1">
+      <div slot="poster" class="model-poster">Cargando modelo 3D...</div>
+    </model-viewer>
+  </div>
+
+</body>
+
+</html>

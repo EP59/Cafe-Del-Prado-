@@ -1,0 +1,20 @@
+{
+  "name": "cafe-del-prado",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "@google/model-viewer": "^4.0.0",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.9",
+    "swiper": "^12.1.2"
+  }
+}
