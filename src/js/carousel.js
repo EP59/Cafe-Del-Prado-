@@ -175,6 +175,24 @@ export function initCarousel(data) {
       }
     });
 
+    const modelViewer = document.getElementById('product-model');
+    const customProgressBar = modelViewer.querySelector('.custom-progress-bar');
+    const customPoster = document.getElementById('model-poster-div');
+
+    // Desaparecer el logo de carga cuando se termine de cargar el modelo 3D
+    modelViewer.addEventListener('load', () => {
+      if (customProgressBar) customProgressBar.style.display = 'none';
+      if (customPoster) customPoster.style.display = 'none';
+    });
+
+    // Controlar visibilidad del logo de carga en modo AR para no manchar la cámara
+    modelViewer.addEventListener('ar-status', (event) => {
+      if (event.detail.status === 'session-started' || event.detail.status === 'object-placed') {
+        if (customProgressBar) customProgressBar.style.display = 'none';
+        if (customPoster) customPoster.style.display = 'none';
+      }
+    });
+
     // Elements
     const onboarding = document.getElementById('ar-onboarding');
     const step1 = document.getElementById('onboarding-step-1');
