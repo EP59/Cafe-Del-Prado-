@@ -18,28 +18,28 @@ export function initCarousel(data) {
     const stack = document.getElementById('cards-stack');
     const swiperContainer = document.querySelector('.product-swiper');
     if (!stack || !swiperContainer) return;
-    
+
     // Transición de fade suave al actualizar el set de datos
     if (!skipFade) swiperContainer.style.opacity = '0';
 
     setTimeout(() => {
       stack.innerHTML = '';
-      
+
       currentItems.forEach((item) => {
         const slide = document.createElement('div');
         slide.classList.add('swiper-slide', 'product-slide');
-        
+
         const img = document.createElement('img');
         img.src = item.image;
         img.loading = "lazy"; // Lazy load selectivo administrado inteligentemente por el navegador
-        
+
         slide.appendChild(img);
-        
+
         // Elemento nativo de carga de Swiper
         const preloader = document.createElement('div');
         preloader.classList.add('swiper-lazy-preloader');
         slide.appendChild(preloader);
-        
+
         stack.appendChild(slide);
       });
 
@@ -61,7 +61,7 @@ export function initCarousel(data) {
             opacity: 0.7
           },
           next: {
-            translate: ['75%', 0, -100], 
+            translate: ['75%', 0, -100],
             scale: 0.85,
             opacity: 0.7
           },
@@ -82,35 +82,35 @@ export function initCarousel(data) {
         on: {
           slideChange: updateProductInfo,
           init: () => {
-             // Asegura fade back de la nueva instancia inicializada
-             if (!skipFade) swiperContainer.style.opacity = '1'; 
+            // Asegura fade back de la nueva instancia inicializada
+            if (!skipFade) swiperContainer.style.opacity = '1';
           }
         }
       });
 
       updateProductInfo();
       swiperContainer.style.transition = 'opacity 0.4s ease'; // Aplica la métrica de transición limpia
-      
+
     }, skipFade ? 0 : 300); // 300ms permite que el anterior se disuelva
   }
 
   function updateProductInfo() {
     if (!swiperInstance || swiperInstance.destroyed) return;
-    
+
     const realIndex = swiperInstance.realIndex;
     if (realIndex === undefined || realIndex < 0) return;
-    
+
     const item = currentItems[realIndex];
     if (!item) return;
-    
+
     const infoContainer = document.getElementById('product-info');
     infoContainer.style.opacity = 0;
-    
+
     setTimeout(() => {
-        nameEl.textContent = item.name;
-        descEl.textContent = item.description || 'Delicada base de pan artesanal con aguacate hass, pizca de sal marina y semillas de sésamo.';
-        priceEl.textContent = item.price;
-        infoContainer.style.opacity = 1;
+      nameEl.textContent = item.name;
+      descEl.textContent = item.description || 'Delicada base de pan artesanal con aguacate hass, pizca de sal marina y semillas de sésamo.';
+      priceEl.textContent = item.price;
+      infoContainer.style.opacity = 1;
     }, 150);
   }
 
@@ -118,7 +118,7 @@ export function initCarousel(data) {
     if (cat === currentCategory) return;
     currentCategory = cat;
     currentItems = data[cat];
-    
+
     catBtns.forEach(b => {
       if (b.dataset.category === cat) {
         b.classList.add('active');
@@ -140,7 +140,7 @@ export function initCarousel(data) {
     if (!swiperInstance) return;
     const item = currentItems[swiperInstance.realIndex];
     if (!item) return;
-    
+
     // Construcción Destructiva Dinámica: Inyecta el componente WebXR al click, forzando limpieza de RAM al cerrarse
     arOverlay.innerHTML = `
       <model-viewer id="product-model" src="${item.arModel}" ios-src="${item.arModelIos || ""}" ar-scale="fixed" ar-placement="floor" scale="1 1 1" ar ar-modes="webxr scene-viewer quick-look" camera-controls exposure="1" shadow-intensity="1" touch-action="pan-y" alt="Modelo 3D de ${item.name}" poster="${item.image}">
@@ -152,7 +152,7 @@ export function initCarousel(data) {
         
         <div slot="progress-bar" class="custom-progress-bar">
           <div class="progress-spinner">
-            <img src="./src/png/Cafe del prado logo.png" alt="Cargando">
+            <img src="/png/Cafe del prado logo.png" alt="Cargando">
           </div>
         </div>
         
@@ -190,13 +190,13 @@ export function initCarousel(data) {
     clearTimeout(window.arOnboardingTimeout2);
 
     window.arOnboardingTimeout = setTimeout(() => {
-       step1.classList.add('hidden');
-       step2.classList.remove('hidden');
-       
-       window.arOnboardingTimeout2 = setTimeout(() => {
-           onboarding.classList.add('hidden');
-           arOverlay.classList.remove('hidden');
-       }, 2000); // Step 2 duracion: 2 segundos
+      step1.classList.add('hidden');
+      step2.classList.remove('hidden');
+
+      window.arOnboardingTimeout2 = setTimeout(() => {
+        onboarding.classList.add('hidden');
+        arOverlay.classList.remove('hidden');
+      }, 2000); // Step 2 duracion: 2 segundos
     }, 2000); // Step 1 duracion: 2 segundos
 
     // Manejo de historial para "Retroceso Nativo"
@@ -206,15 +206,15 @@ export function initCarousel(data) {
   function closeArView() {
     clearTimeout(window.arOnboardingTimeout);
     clearTimeout(window.arOnboardingTimeout2);
-    
+
     const onboarding = document.getElementById('ar-onboarding');
     if (onboarding) onboarding.classList.add('hidden');
-    
+
     arOverlay.classList.add('hidden');
-    
+
     // Destrucción total del elemento en el DOM para forzar al Garbage Collector a limpiar VideoRAM y WebXR context
     setTimeout(() => {
-        arOverlay.innerHTML = '';
+      arOverlay.innerHTML = '';
     }, 400); // Dar padding de tiempo a la transición CSS de hide si existe
   }
 
